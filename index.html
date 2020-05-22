@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+    </nav>
+    <section class="grid-container">
+      <aside class="col-sm-4 item1">
+        <form class="form-inline">
+          <label for="searchBar"> Search for a city:</label>
+          <input
+            class="form-control m-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            id="searchBar"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </aside>
+        </form>
+        <!-- use js to push and prepend list items here <li class="list-group-item"></li>-->
+        <ul class="list-group item2">
+          <li class="list-group-item">test</li>
+          <li class="list-group-item">test</li>
+          <li class="list-group-item">test</li>
+        </ul>
+      
+      <section class="col-sm-8 item3" id="currentWeather">test</section>
+      <section class="col-sm-8 item4" id="futureWeather">test</section>
+    </section>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
