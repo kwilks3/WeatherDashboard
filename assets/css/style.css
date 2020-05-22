@@ -1,8 +1,8 @@
+/* create grid and align the boxes how I want them on the page */
 .grid-container {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr 2fr;
-  /* grid-template-rows: auto auto auto auto auto; */
 }
 .item1 {
   grid-row-start: 1;
