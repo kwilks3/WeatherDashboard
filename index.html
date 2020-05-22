@@ -19,13 +19,16 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+      <!-- page nav styled header -->
     <nav class="navbar navbar-dark bg-dark">
       <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
     </nav>
     <section class="grid-container">
       <aside class="col-sm-4 item1">
         <form class="form-inline">
+            <!-- created grid container for page alignment -->
             <section class="grid-container">
+                <!-- search bar and button -->
           <input
             class="form-control m-sm-2"
             type="search"
@@ -40,12 +43,13 @@
         </aside>
         </form>
 
-        <!-- use js to push and prepend list items here <li class="list-group-item"></li>-->
+        <!-- use js to push and prepend search items into this list <li class="list-group-item"></li>-->
         <ul class="list-group item2">
          
         </ul>
-      
+      <!-- use js to push current weather into this currentWeather ID  -->
       <section class="col-sm-8 item3 card" ><div class="card-body" id="currentWeather"></div></section>
+      <!-- use js to push future weather into this futureWeather ID -->
       <section class="col-sm-8 item4 card" ><div class="card-body" id="futureWeather"></div></section>
     </section>
     <script src="https://code.jquery.com/jquery.js"></script>
