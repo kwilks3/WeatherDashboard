@@ -25,28 +25,28 @@
     <section class="grid-container">
       <aside class="col-sm-4 item1">
         <form class="form-inline">
-          <label for="searchBar"> Search for a city:</label>
+            <section class="grid-container">
           <input
             class="form-control m-sm-2"
             type="search"
-            placeholder="Search"
+            placeholder="Search for a city"
             aria-label="Search"
             id="searchBar"
           />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button class="btn btn-outline-success my-2 " type="submit">
             <i class="fa fa-search"></i>
           </button>
+          </section>
         </aside>
         </form>
+
         <!-- use js to push and prepend list items here <li class="list-group-item"></li>-->
         <ul class="list-group item2">
-          <li class="list-group-item">test</li>
-          <li class="list-group-item">test</li>
-          <li class="list-group-item">test</li>
+         
         </ul>
       
-      <section class="col-sm-8 item3" id="currentWeather">test</section>
-      <section class="col-sm-8 item4" id="futureWeather">test</section>
+      <section class="col-sm-8 item3 card" ><div class="card-body" id="currentWeather"></div></section>
+      <section class="col-sm-8 item4 card" ><div class="card-body" id="futureWeather"></div></section>
     </section>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
