@@ -39,7 +39,7 @@ $(searchBtn).on("click", function (event) {
         `<strong>${cityName} ${today}</strong></br><div>Temperature: ${temperature}</div><div>Humidity: ${humidity}</div><div>Wind Speed: ${windSpeed}</div>`
       );
       var uvCondition; // Create conditional statement to determine this value
-      // creating uv index separately so that it can be chan
+      // creating uv index separately so that it can be changed based in UV condition
       var uvDiv = document.createElement("div");
       var test = $(uvDiv).html(
         `UV Index: <span class = ${uvCondition}>${uvIndex}<span>`
