@@ -47,6 +47,7 @@ $(searchBtn).on("click", function (event) {
       } else if (uvIndex > 2 && uvIndex < 8) {
         uvCondition = "badge badge-warning";
       } else uvCondition = "badge badge-danger";
+      // adding current weather to the existing HTML tag
       // creating uv index separately so that it can be changed based in UV condition
       var uvDiv = document.createElement("div");
       $(uvDiv).html(
@@ -54,7 +55,5 @@ $(searchBtn).on("click", function (event) {
       );
       $("#currentWeather").append(uvDiv);
     });
-
-    // adding current weather to the existing HTML tag
   });
 });
