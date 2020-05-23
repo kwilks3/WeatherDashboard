@@ -30,3 +30,7 @@ strong {
 img {
   width: 50px;
 }
+.cardstyle {
+  background-color: blue;
+  color: white;
+}

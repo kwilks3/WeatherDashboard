@@ -56,26 +56,29 @@ $(searchBtn).on("click", function (event) {
       $("#currentWeather").append(uvDiv);
     });
     // get five day forecast and display to page
-    // create a for loop to get all days
+
     var futureUrl =
       "http://api.openweathermap.org/data/2.5/forecast?lat=" +
       latitude +
       "&lon=" +
       longitude +
       "&appid=d536df736fe4039cfe9ab0fe57652858";
-    $.ajax({
-      url: futureUrl,
-      method: "GET",
-    }).then(function (response) {
-      console.log(response.list[0]);
-      // get only date from date and time
-      var date = response.list[0].dt_txt.split(" ").shift();
-      var futureIcon = response.list[0].weather[0].icon;
-      var futureTemp =
-        Math.round((response.list[0].main.temp - 273.15) * 1.8 + 32) +
-        " \u00B0F";
-      var futureHumid = response.list[0].main.humidity + "%";
-      console.log(futureHumid);
-    });
+    // create a for loop to get all days the 0th day is today so start at 1 and grab the first 5 days
+
+    for (var i = 0; i < 6; i++) {
+      $.ajax({
+        url: futureUrl,
+        method: "GET",
+      }).then(function (response) {
+        // get only date from date and time
+        var date = response.list[i].dt_txt.split(" ").shift();
+        var futureIcon = response.list[i].weather[0].icon;
+        var futureTemp =
+          Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
+          " \u00B0F";
+        var futureHumid = response.list[i].main.humidity + "%";
+        $(`t${i}`).html(`<strong>${date}</strong>`);
+      });
+    }
   });
 });
