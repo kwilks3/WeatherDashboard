@@ -24,3 +24,6 @@
   grid-row-start: 3;
   grid-row-end: 6;
 }
+strong {
+  font-size: 20px;
+}
