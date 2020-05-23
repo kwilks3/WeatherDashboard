@@ -22,21 +22,24 @@ $(searchBtn).on("click", function (event) {
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
     var uvIndex;
+    var currentIcon = response.weather[0].icon;
+    // get icon from separate link
+    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
     // uvindex is in another API so I need to call that using lat and lon
-    var url2 =
+    var uvUrl =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       latitude +
       "&lon=" +
       longitude +
       "&exclude=hourly,daily&appid=d536df736fe4039cfe9ab0fe57652858";
-
+    // get current uv index and display based on condition
     $.ajax({
-      url: url2,
+      url: uvUrl,
       method: "GET",
     }).then(function (response) {
       uvIndex = response.current.uvi;
       $("#currentWeather").html(
-        `<strong>${cityName} ${today}</strong></br><div>Temperature: ${temperature}</div><div>Humidity: ${humidity}</div><div>Wind Speed: ${windSpeed}</div>`
+        `<strong>${cityName} ${today}</strong><img src= "${iconUrl}" alt = "current weather icon"/></br><div>Temperature: ${temperature}</div><div>Humidity: ${humidity}</div><div>Wind Speed: ${windSpeed}</div>`
       );
       var uvCondition;
       if (uvIndex <= 2) {
@@ -44,8 +47,6 @@ $(searchBtn).on("click", function (event) {
       } else if (uvIndex > 2 && uvIndex < 8) {
         uvCondition = "badge badge-warning";
       } else uvCondition = "badge badge-danger";
-
-      // Create conditional statement to determine this value
       // creating uv index separately so that it can be changed based in UV condition
       var uvDiv = document.createElement("div");
       $(uvDiv).html(
@@ -53,6 +54,7 @@ $(searchBtn).on("click", function (event) {
       );
       $("#currentWeather").append(uvDiv);
     });
+
     // adding current weather to the existing HTML tag
   });
 });
