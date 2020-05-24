@@ -47,6 +47,7 @@ $(searchBtn).on("click", function (event) {
       } else if (uvIndex > 2 && uvIndex < 8) {
         uvCondition = "badge badge-warning";
       } else uvCondition = "badge badge-danger";
+      // adding current weather to the existing HTML tag
       // creating uv index separately so that it can be changed based in UV condition
       var uvDiv = document.createElement("div");
       $(uvDiv).html(
@@ -54,7 +55,29 @@ $(searchBtn).on("click", function (event) {
       );
       $("#currentWeather").append(uvDiv);
     });
+    // get five day forecast and display to page
 
-    // adding current weather to the existing HTML tag
+    var futureUrl =
+      "http://api.openweathermap.org/data/2.5/forecast?lat=" +
+      latitude +
+      "&lon=" +
+      longitude +
+      "&appid=d536df736fe4039cfe9ab0fe57652858";
+    // create a for loop to get all days the 0th day is today so start at 1 and grab the first 5 days
+    for (var i = 0; i < 5; i++) {
+      $.ajax({
+        url: futureUrl,
+        method: "GET",
+      }).then(function (response) {
+        // get only date from date and time
+        var date = response.list[i].dt_txt.split(" ").shift();
+        var futureIcon = response.list[i].weather[0].icon;
+        var futureTemp =
+          Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
+          " \u00B0F";
+        var futureHumid = response.list[i].main.humidity + "%";
+        document.getElementsByClassName("cardstyle")[i].innerText = date;
+      });
+    }
   });
 });
