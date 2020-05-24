@@ -64,8 +64,7 @@ $(searchBtn).on("click", function (event) {
       longitude +
       "&appid=d536df736fe4039cfe9ab0fe57652858";
     // create a for loop to get all days the 0th day is today so start at 1 and grab the first 5 days
-
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 5; i++) {
       $.ajax({
         url: futureUrl,
         method: "GET",
@@ -77,7 +76,7 @@ $(searchBtn).on("click", function (event) {
           Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
           " \u00B0F";
         var futureHumid = response.list[i].main.humidity + "%";
-        $(`t${i}`).html(`<strong>${date}</strong>`);
+        document.getElementsByClassName("cardstyle")[i].innerText = date;
       });
     }
   });
