@@ -1,10 +1,11 @@
 var cityInput = document.getElementById("searchBar");
 var searchBtn = document.getElementsByTagName("button");
-
+var savedSearch = [];
+var searchList = [];
 // get information from API for current day
 $(searchBtn).on("click", function (event) {
   event.preventDefault();
-
+  savedSearch.push(cityInput.value);
   var searchCity = cityInput.value;
   var queryURL =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -76,8 +77,21 @@ $(searchBtn).on("click", function (event) {
           Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
           " \u00B0F";
         var futureHumid = response.list[i].main.humidity + "%";
-        document.getElementsByClassName("cardstyle")[i].innerText = date;
       });
     }
   });
+  search();
 });
+
+function search() {
+  localStorage.setItem("saved", JSON.stringify(savedSearch));
+  searchList = JSON.parse(localStorage.getItem("saved"));
+  $("ul").html("");
+  for (var i = 0; i < searchList.length; i++) {
+    var items = $("<li>");
+    items.addClass("list-group-item");
+    items.text(searchList[i]);
+    items.value = searchList[i];
+    $("ul").prepend(items);
+  }
+}
