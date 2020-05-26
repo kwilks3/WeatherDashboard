@@ -94,5 +94,4 @@ function search() {
     items.value = searchList[i];
     $("ul").prepend(items);
   }
-  console.log(searchList);
 }
