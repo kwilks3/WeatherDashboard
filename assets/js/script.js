@@ -1,12 +1,19 @@
 var cityInput = document.getElementById("searchBar");
 var searchBtn = document.getElementsByTagName("button");
-var savedSearch = [];
-var searchList = [];
+var savedSearch = JSON.parse(localStorage.getItem("saved")) || [];
+setHistory();
 // get information from API for current day
 $(searchBtn).on("click", function (event) {
   event.preventDefault();
-  savedSearch.push(cityInput.value);
-  var searchCity = cityInput.value;
+  runSearch(cityInput.value);
+});
+
+function runSearch(city) {
+  // add condition to see if city already exists
+  if (!savedSearch.includes(city) || city === null) {
+    savedSearch.push(city);
+  }
+  var searchCity = city;
   var queryURL =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     searchCity +
@@ -65,33 +72,38 @@ $(searchBtn).on("click", function (event) {
       longitude +
       "&appid=d536df736fe4039cfe9ab0fe57652858";
     // create a for loop to get all days the 0th day is today so start at 1 and grab the first 5 days
-    for (var i = 0; i < 5; i++) {
-      $.ajax({
-        url: futureUrl,
-        method: "GET",
-      }).then(function (response) {
-        // get only date from date and time
-        var date = response.list[i].dt_txt.split(" ").shift();
-        var futureIcon = response.list[i].weather[0].icon;
-        var futureTemp =
-          Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
-          " \u00B0F";
-        var futureHumid = response.list[i].main.humidity + "%";
-      });
-    }
+    // for (var i = 0; i < 5; i++) {
+    //   $.ajax({
+    //     url: futureUrl,
+    //     method: "GET",
+    //   }).then(function (response) {
+    //     // get only date from date and time
+    //     var date = response.list[i].dt_txt.split(" ").shift();
+    //     var futureIcon = response.list[i].weather[0].icon;
+    //     var futureTemp =
+    //       Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
+    //       " \u00B0F";
+    //     var futureHumid = response.list[i].main.humidity + "%";
+    //   });
+    // }
   });
-  search();
-});
+  setHistory();
+}
 
-function search() {
+function setHistory() {
   localStorage.setItem("saved", JSON.stringify(savedSearch));
-  searchList = JSON.parse(localStorage.getItem("saved"));
   $("ul").html("");
-  for (var i = 0; i < searchList.length; i++) {
+  for (var i = 0; i < savedSearch.length; i++) {
     var items = $("<li>");
     items.addClass("list-group-item");
-    items.text(searchList[i]);
-    items.value = searchList[i];
+    items.text(savedSearch[i]);
+
     $("ul").prepend(items);
   }
 }
+
+$("ul").on("click", function (event) {
+  if (event.target.matches("li")) {
+    runSearch($(event.target).text());
+  }
+});
