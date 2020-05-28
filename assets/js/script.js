@@ -7,7 +7,10 @@ $(searchBtn).on("click", function (event) {
   event.preventDefault();
   runSearch(cityInput.value);
 });
-
+// load the last searched item to the page
+if (savedSearch.length !== 0) {
+  runSearch(savedSearch[savedSearch.length - 1]);
+}
 function runSearch(city) {
   // add condition to see if city already exists
   if (!savedSearch.includes(city) || city === null) {
@@ -57,14 +60,14 @@ function runSearch(city) {
       } else uvCondition = "badge badge-danger";
       // adding current weather to the existing HTML tag
       // creating uv index separately so that it can be changed based in UV condition
-      var uvDiv = document.createElement("div");
+      var uvDiv = $("<div>");
       $(uvDiv).html(
         `UV Index: <span class = "${uvCondition}">${uvIndex}<span>`
       );
       $("#currentWeather").append(uvDiv);
     });
     // get five day forecast and display to page
-
+    $("#futureWeather").html("");
     var futureUrl =
       "http://api.openweathermap.org/data/2.5/forecast?lat=" +
       latitude +
@@ -72,20 +75,38 @@ function runSearch(city) {
       longitude +
       "&appid=d536df736fe4039cfe9ab0fe57652858";
     // create a for loop to get all days the 0th day is today so start at 1 and grab the first 5 days
-    // for (var i = 0; i < 5; i++) {
-    //   $.ajax({
-    //     url: futureUrl,
-    //     method: "GET",
-    //   }).then(function (response) {
-    //     // get only date from date and time
-    //     var date = response.list[i].dt_txt.split(" ").shift();
-    //     var futureIcon = response.list[i].weather[0].icon;
-    //     var futureTemp =
-    //       Math.round((response.list[i].main.temp - 273.15) * 1.8 + 32) +
-    //       " \u00B0F";
-    //     var futureHumid = response.list[i].main.humidity + "%";
-    //   });
-    // }
+    $.ajax({
+      url: futureUrl,
+      method: "GET",
+    }).then(function (response) {
+      var futureDates = {};
+      for (var i = 0; i < response.list.length; i++) {
+        // get only date from date and time
+
+        var date = response.list[i].dt_txt.split(" ").shift();
+        if (!futureDates[date]) {
+          futureDates[date] = response.list[i];
+        }
+      }
+
+      for (let [key, value] of Object.entries(futureDates)) {
+        console.log(futureDates.value);
+        var futureIcon = value.weather[0].icon;
+        var futureIconUrl =
+          "http://openweathermap.org/img/wn/" + futureIcon + "@2x.png";
+        var futureTemp =
+          Math.round((value.main.temp - 273.15) * 1.8 + 32) + " \u00B0F";
+        var futureHumid = value.main.humidity + "%";
+        future = $("<section>");
+        $(future).addClass("col-sm cardstyle");
+
+        $(future).html(
+          `<div>${key}</div><img src= "${futureIconUrl}" alt ="future weather icon"/><div>Temperature: ${futureTemp}</div><div>Humidity: ${futureHumid}</div>`
+        );
+
+        $("#futureWeather").append(future);
+      }
+    });
   });
   setHistory();
 }
