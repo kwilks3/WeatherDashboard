@@ -18,7 +18,7 @@ function runSearch(city) {
   }
   var searchCity = city;
   var queryURL =
-    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
     searchCity +
     "&APPID=d536df736fe4039cfe9ab0fe57652858";
 
@@ -35,7 +35,8 @@ function runSearch(city) {
     var uvIndex;
     var currentIcon = response.weather[0].icon;
     // get icon from separate link
-    var iconUrl = "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
+    var iconUrl =
+      "https://openweathermap.org/img/wn/" + currentIcon + "@2x.png";
     // uvindex is in another API so I need to call that using lat and lon
     var uvUrl =
       "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -69,7 +70,7 @@ function runSearch(city) {
     // get five day forecast and display to page
     $("#futureWeather").html("");
     var futureUrl =
-      "http://api.openweathermap.org/data/2.5/forecast?lat=" +
+      "https://api.openweathermap.org/data/2.5/forecast?lat=" +
       latitude +
       "&lon=" +
       longitude +
@@ -93,7 +94,7 @@ function runSearch(city) {
         console.log(futureDates.value);
         var futureIcon = value.weather[0].icon;
         var futureIconUrl =
-          "http://openweathermap.org/img/wn/" + futureIcon + "@2x.png";
+          "https://openweathermap.org/img/wn/" + futureIcon + "@2x.png";
         var futureTemp =
           Math.round((value.main.temp - 273.15) * 1.8 + 32) + " \u00B0F";
         var futureHumid = value.main.humidity + "%";
