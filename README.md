@@ -1,7 +1,7 @@
-# WeatherDashboard
+# Weather Dashboard
 
-The weather dashboard can be found at this link. https://kwilks3.github.io/WeatherDashboard/
-<img src = "./assets/images/weather.png" alt= "weather dash/>
+The weather dashboard can be found here: https://kwilks3.github.io/WeatherDashboard/
+<img src = "./assets/images/weather.png" alt= "weather dash"/>
 
 ## Search Away
 
